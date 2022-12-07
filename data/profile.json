@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Nata Bagus Arisandi",
+    "age": 21,
+    "UserId": 1,
+    "bio": "Saya seorang programer handal lulusan Hacktiv8",
+    "profile_picture": "https://images.unsplash.com/photo-1581348464577-9018bfcc22da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aGFuc29tZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+  },
+  {
+    "name": "Hidayat Soebandi",
+    "age": 23,
+    "UserId": 2,
+    "bio": "Hidayat jr.oi oi chat gua yee",
+    "profile_picture": "https://images.unsplash.com/photo-1666074818713-2e90b05fdc78?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8aGFuc29tZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+  }
+]

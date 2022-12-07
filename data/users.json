@@ -1,0 +1,14 @@
+[
+  {
+    "userName": "nata_bagus",
+    "email": "natabagus@gmail.com",
+    "password": "123coba",
+    "role": "user"
+  },
+  {
+    "userName": "hidayat62",
+    "email": "hidayat62@gmail.com",
+    "password": "123coba",
+    "role": "admin"
+  }
+]
