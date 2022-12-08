@@ -30,6 +30,7 @@ router.get('/addPost',Controller.addPostForm)
 router.post('/addPost',Controller.addPost)
 router.get('/addProfile',Controller.formProfile)
 router.post('/addProfile',Controller.addProfile)
+router.get('/updateLike',Controller.addLike)
 router.get('/logout',Controller.logOut)
 
 

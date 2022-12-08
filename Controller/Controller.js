@@ -119,5 +119,9 @@ class Controller {
             response.send(err)
         })
     }
+
+    static addLike(request,response){
+        
+    }
 }
 module.exports = Controller
