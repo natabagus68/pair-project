@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasOne(models.Profile);
       User.hasMany(models.Post);
-      User.hasMany(models.Commentar);
     }
     static allUsers(){
       return User.findAll({
@@ -35,7 +34,6 @@ module.exports = (sequelize, DataTypes) => {
           const salt = bcrypt.genSaltSync(10);
           const hash = bcrypt.hashSync(instance.password, salt)
           instance.password = hash
-          instance.role = 'User'
         },
       }, sequelize,
       modelName: "User",

@@ -1,4 +1,4 @@
-const { User,Profile } = require('../models/index')
+const { User,Profile,Post } = require('../models/index')
 const bcrypt = require('bcryptjs')
 class Controller {
     static home(request, response) {
@@ -67,14 +67,26 @@ class Controller {
             .catch((err) => response.send(err))
     }
     static successLogin(request, response) {
+        let UserId =request.session.userId
         let errors=request.query.errors
-        if(request.session.userId && request.session.userRole==='Admin'){
-            response.redirect('/add')
-        }
-        else{
-            response.render('successLogin',{errors})
-        }
+            User.findOne({where:{
+                id:UserId
+            },include:{
+                all:true
+            }})
+            .then((result)=>response.render('successLogin',{result,errors}))
+            .catch((err)=>response.send(err))
         
+    }
+    static addPostForm(request,response){
+        response.render('addPost')
+    }
+    static addPost(request,response){
+        let UserId =request.session.userId
+        let {title,content}=request.body
+        Post.create({title,content,UserId})
+        .then((_)=>response.redirect('/successLogin'))
+        .catch((err)=>response.send(err))
     }
     static logOut(request,response){
         request.session.destroy((err)=>{
@@ -94,6 +106,18 @@ class Controller {
 
     static formProfile(request,response){
         response.render('profiles')
+    }
+    static addProfile(request,response){
+        let UserId = request.session.userId
+        let {name,age,bio,profile_picture,gender}=request.body
+        console.log(UserId)
+        console.log(request.body)
+        Profile.create({name,age,UserId,bio,profile_picture,gender})
+        .then((_)=>response.redirect('/successLogin'))
+        .catch((err)=>{
+            console.log(err)
+            response.send(err)
+        })
     }
 }
 module.exports = Controller

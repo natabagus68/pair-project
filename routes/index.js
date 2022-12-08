@@ -16,9 +16,22 @@ router.use((req, res, next) => {
         next()
     }
 })
+
+// router.use((req, res, next) => {
+//     if (req.session.userId && req.session.userRole==='Admin') {
+//         res.redirect('/add')
+//     }
+//     else if(req.session.userId && req.session.userRole==='User') {
+//         next()
+//     }
+// })
 router.get('/successLogin',Controller.successLogin)
+router.get('/addPost',Controller.addPostForm)
+router.post('/addPost',Controller.addPost)
 router.get('/addProfile',Controller.formProfile)
+router.post('/addProfile',Controller.addProfile)
 router.get('/logout',Controller.logOut)
+
 
 router.use((req, res, next) => {
     if (req.session.userId && req.session.userRole!='Admin') {

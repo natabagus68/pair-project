@@ -9,8 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Post.belongsToMany(models.User,{through:models.Commentar});
-      Post.hasMany(models.Commentar);
+      Post.belongsTo(models.User);
     }
   }
   Post.init(
@@ -25,5 +24,8 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Post",
     }
   );
+  Post.beforeCreate((post)=>{
+    post.like=0
+  })
   return Post;
 };
