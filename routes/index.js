@@ -30,7 +30,7 @@ router.get('/addPost',Controller.addPostForm)
 router.post('/addPost',Controller.addPost)
 router.get('/addProfile',Controller.formProfile)
 router.post('/addProfile',Controller.addProfile)
-router.get('/updateLike',Controller.addLike)
+router.get('/updateLike/:postId',Controller.addLike)
 router.get('/logout',Controller.logOut)
 
 
@@ -43,6 +43,7 @@ router.use((req, res, next) => {
         next()
     }
 })
-router.get('/add',Controller.addForm)
+router.get('/listUsers',Controller.adminPage)
+router.get('/deleteUser/:userId',Controller.deleteUser)
 
 module.exports=router

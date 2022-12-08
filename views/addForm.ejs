@@ -25,7 +25,6 @@
                     <tr>
                         <th scope="col">User Name</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Name</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -38,9 +37,8 @@
                         <td>
                             <%= element.email %>
                         </td>
-                        <td>Dayat</td>
                         <td>
-                            <a class="btn btn-danger" href="#">Delete</a>
+                            <a class="btn btn-danger" href="/deleteUser/<%= element.id %>">Delete</a>
                         </td>
                     </tr>
                     <% }) %>

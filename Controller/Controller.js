@@ -1,5 +1,7 @@
 const { User,Profile,Post } = require('../models/index')
 const bcrypt = require('bcryptjs')
+const {formatDate}= require('../helper/index')
+const { Op } = require("sequelize")
 class Controller {
     static home(request, response) {
         response.render('home')
@@ -9,7 +11,7 @@ class Controller {
            return response.redirect('/successLogin')
         }
         else if(request.session.userId && request.session.userRole==='Admin'){
-            return response.redirect('/add')
+            return response.redirect('/listUsers')
         }
         else{
             response.render('register')
@@ -29,14 +31,12 @@ class Controller {
             response.redirect('/successLogin')
         }
         else if(request.session.userId && request.session.userRole==='Admin'){
-            response.redirect('/add')
+            response.redirect('/listUsers')
         }
         let errors = request.query.errors
         response.render('login',{errors})
     }
     static postLogin(request, response) {
-        //user ada?? klo g ada, ya ttp stay atau tampilin pesan register dlu,klo ada, 
-        // passwordnya bener ga (bandingin sama hash password)?? klo bener lanjut, klo kaga stay
         const { userName, password } = request.body
         User.findOne({
             where: {
@@ -47,10 +47,10 @@ class Controller {
                 if (user) {
                     let isValidPassword = bcrypt.compareSync(password, user.password)
                     if(isValidPassword){
-                        request.session.userId=user.id //set session di controller
+                        request.session.userId=user.id 
                         request.session.userRole=user.role
                         if(request.session.userRole==="Admin"){
-                            return response.redirect('/add')
+                            return response.redirect('/listUsers')
                         }
                         else{
                             return response.redirect('/successLogin')
@@ -69,12 +69,31 @@ class Controller {
     static successLogin(request, response) {
         let UserId =request.session.userId
         let errors=request.query.errors
+        let search = request.query.search
+        let option =''
+        if(search){
+            option+=search
+        }
+        let profileUser
             User.findOne({where:{
                 id:UserId
             },include:{
                 all:true
             }})
-            .then((result)=>response.render('successLogin',{result,errors}))
+            .then((result)=>{
+                profileUser=result
+                return Post.findAll({
+                    include:{
+                        model:User
+                    },order:[['like','DESC']],
+                    where:{
+                        title:{
+                            [Op.iLike]: `%${option}%`
+                        }
+                    }
+                })
+            })
+            .then((result)=>response.render('successLogin',{result,errors,formatDate,profileUser}))
             .catch((err)=>response.send(err))
         
     }
@@ -98,12 +117,7 @@ class Controller {
             }
         })
     }
-    static addForm(request,response){
-        User.allUsers()
-        .then((result)=>response.render('addForm',{result}))
-        .catch((err)=>response.send(err))
-    }
-
+   
     static formProfile(request,response){
         response.render('profiles')
     }
@@ -121,7 +135,38 @@ class Controller {
     }
 
     static addLike(request,response){
-        
+        let id = request.params.postId
+        Post.findOne({
+            where:{
+                id:id
+            }
+        })
+        .then((result)=>{
+            Post.update({like:result.like+1},{
+                where:{
+                    id:result.id
+                }
+            })
+        })
+        .then((_)=>response.redirect('/successLogin'))
+        .catch((err)=>response.send(err))
+    }
+
+    static adminPage(request,response){
+        User.allUsers()
+        .then((result)=>response.render('addForm',{result}))
+        .catch((err)=>response.send(err))
+    }
+
+    static deleteUser(request,response){
+        let id = request.params.userId
+        User.destroy({
+            where:{
+                id:id
+            }
+        })
+        .then((_)=>response.redirect('/listUsers'))
+        .catch((err)=>response.send(err))
     }
 }
 module.exports = Controller

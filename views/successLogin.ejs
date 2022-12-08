@@ -20,7 +20,7 @@
             <div class="container-fluid">
                 <a class="btn"href="/successLogin"><span class="navbar-brand mb-0 h1 text-white">faceBali</span></a>
                 <div class="container">
-                    <% if(!result.Profile){ %>
+                    <% if(!profileUser.Profile){ %>
                     <a class="btn btn-success" href="/addProfile">Add Profile</a>
                    <% } %>
                    <a class="btn btn-success" href="/addPost">Add Post</a> 
@@ -28,76 +28,49 @@
                 </div>
             </div>
         </nav>
-        <% if(result.Profile) { %>
+        <% if(profileUser.Profile) { %>
             <div class="card w-25 ">
                 <div class="card-body">
                   <h5 class="card-title">Profile</h5>
-                  <p class="card-text">Nama: <%=result.Profile.greeting()  %></p>
-                  <p class="card-text">Age: <%=result.Profile.age  %></p>
-                  <p class="card-text">Email: <%=result.email  %></p>
-                  <img class="card-text w-50" src="<%=result.Profile.profile_picture%>">
-                  <p class="card-text">Bio: <%=result.Profile.bio  %></p>
+                  <p class="card-text">Nama: <%=profileUser.Profile.greeting()  %></p>
+                  <p class="card-text">Age: <%=profileUser.Profile.age  %></p>
+                  <p class="card-text">Email: <%=profileUser.email  %></p>
+                  <img class="card-text w-50" src="<%=profileUser.Profile.profile_picture%>">
+                  <p class="card-text">Bio: <%=profileUser.Profile.bio  %></p>
                   <a href="/add" class="btn btn-primary">Button</a>
                 </div>
               </div>
         <% }%>  
             <!-- <a href="/add">add book</a> -->
-            <div class="card-body">
-                <div class="container d-flex justify-content-center">
-                    <div class="card mb-3 col-md-10 col-lg-8 col-xl-6">
-                        <h2 class="text-start">Posted by Hidayat</h2>
-                        <img src="https://id.jugomobile.com/wp-content/uploads/2022/02/Cara-membuka-kunci-pertarungan-bos-mingguan-dengan-Raiden-Shogun-di.jpg"
-                            class="card-img-top mt-2">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="" class="form-label">Comments: 64</label>
-                                </div>
-                                <div class="col-9">
-                                    <label for="" class="form-label">Like: 37</label>
-                                </div>
-                            </div>
-                            <div class="col mt-3">
-                                <p> User dayat: Mantap cantiknyaa</p>
-                                <p>User yopie: Beuh</p>
-                            </div>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            <div class="card-footer text-muted ">
-                                <div class="row">
-                                    <div class="col-6 text-center">
-                                        <a href="#" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
-                                            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
-                                          </svg> Comment</a>
-                                    </div>
-                                    <div class="col-6 text-center">
-                                        <a href="#" class="btn">&#10084 Like</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="container d-flex justify-content-center">
+                <div class="card col-6">
+                    <div class="card-body">
+                        <form action="/successLogin" method="get">
+                            <label for="exampleDataList" class="form-label">Search Post</label>
+                            <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." name="search">
+                            <button class="btn btn-primary mt-2">Search</button>
+                        </form>
                     </div>
-                </div>
+                  </div>
             </div>
-            <% result.Posts.forEach((element)=>{ %>
-                <div class="container d-flex justify-content-center">
+            <% result.forEach((element)=>{ %>
+                <div class="container d-flex justify-content-center mt-3">
                     <div class="card col-md-10 col-lg-8 col-xl-6">
                         <h2 class="text-start"><%=element.title %></h2>
                         <img src="<%=element.content%> "
                             class="img-fluid card-img-top mt-2">
                         <div class="card-body">
                                 <div class="col-9">
-                                    <label for="" class="form-label"><a href="#" class="btn">&#10084</a> Like: <%=element.like %></label>
+                                    <a href="/updateLike/<%= element.id %>" class="btn"><h5>&#10084 Like: <%=element.like %></h5></a> 
                                 </div>
                             </div>
                             <div class="card-footer text-muted ">
                                 <div class="row">
                                     <div class="col-6 text-center">
-                                        <a href="#" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
-                                            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
-                                          </svg> Comment</a>
+                                        <h5>Posted by <%= element.User.userName %> </h5>
                                     </div>
                                     <div class="col-6 text-center">
-                                        <a href="#" class="btn">Like</a>
+                                        <h5>Posted at <%= formatDate(element.createdAt) %> </h5>
                                     </div>
                                 </div>
                             </div>
