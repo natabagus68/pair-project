@@ -14,6 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Post);
       User.hasMany(models.Commentar);
     }
+    static allUsers(){
+      return User.findAll({
+        where:{
+            role:'User'
+        }
+    })
+    }
   }
   User.init(
     {
@@ -28,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
           const salt = bcrypt.genSaltSync(10);
           const hash = bcrypt.hashSync(instance.password, salt)
           instance.password = hash
+          instance.role = 'User'
         },
       }, sequelize,
       modelName: "User",

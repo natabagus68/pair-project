@@ -17,6 +17,7 @@ router.use((req, res, next) => {
     }
 })
 router.get('/successLogin',Controller.successLogin)
+router.get('/addProfile',Controller.formProfile)
 router.get('/logout',Controller.logOut)
 
 router.use((req, res, next) => {
@@ -24,6 +25,7 @@ router.use((req, res, next) => {
         res.redirect('/successLogin?errors=You are not admin')
     }
     else {
+        console.log(req.session.userId)
         next()
     }
 })

@@ -1,4 +1,4 @@
-const { User } = require('../models/index')
+const { User,Profile } = require('../models/index')
 const bcrypt = require('bcryptjs')
 class Controller {
     static home(request, response) {
@@ -87,13 +87,13 @@ class Controller {
         })
     }
     static addForm(request,response){
-        User.findAll({
-            where:{
-                role:'User'
-            }
-        })
+        User.allUsers()
         .then((result)=>response.render('addForm',{result}))
         .catch((err)=>response.send(err))
+    }
+
+    static formProfile(request,response){
+        response.render('profiles')
     }
 }
 module.exports = Controller
