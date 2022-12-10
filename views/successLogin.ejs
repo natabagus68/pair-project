@@ -43,6 +43,11 @@
         <% }%>  
             <!-- <a href="/add">add book</a> -->
             <div class="container d-flex justify-content-center">
+                <% if(success) { %> 
+                    <div class="alert alert-success">
+                        <%= success %> 
+                    </div>
+                    <% } %> 
                 <div class="card col-6">
                     <div class="card-body">
                         <form action="/successLogin" method="get">
