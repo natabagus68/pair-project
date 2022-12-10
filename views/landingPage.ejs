@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/landingPage.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Lato:wght@400;900&family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <title>Facebali</title>
+  </head>
+  <body>
+    <div class="containers">
+      <div class="wrap">
+        <h1>Facebali</h1>
+
+        <p>
+          Facebali helps you connect and share with the people in your life.
+        </p>
+      </div>
+
+      <div class="cardind">
+        <form action="/login" method="post">
+          <div class="mb-3">
+            <input
+              autocomplete="off"
+              type="email"
+              class="form-control"
+              name="email"
+              placeholder="Email address"
+            />
+            <% if(vld.email) { %>
+            <div class="alert alert-danger mt-2">m<%= vld.email %></div>
+            <% } %>
+          </div>
+          <div class="mb-3">
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              placeholder="Password"
+            />
+            <% if(vld.password) { %>
+            <div class="alert alert-danger mt-2"><%= vld.password %></div>
+            <% } %>
+          </div>
+          <div class="mb-3 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+          <div class="mb-3 d-flex line">
+            <div></div>
+            <p style="color: #4b4f56">or</p>
+            <div></div>
+          </div>
+
+          <div class="mb-3 d-flex justify-content-center">
+            <a href="#" class="btn-register">Create New Account</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
